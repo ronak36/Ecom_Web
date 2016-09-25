@@ -18,6 +18,7 @@ public class AddProductServlet extends HttpServlet {
 		String productName = request.getParameter("productName").toString();
 		String productPrice = request.getParameter("productPrice").toString();
 		String category = request.getParameter("category2").toString();
+		//all product info is captured.
 		
 		out.println(" " + productId + " " + productName + " " + productPrice + " " + category);
 	}
