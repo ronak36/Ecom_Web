@@ -9,11 +9,29 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.tribes.util.Arrays;
 
 import com.pojo.Cart;
+import com.pojo.Customer;
 import com.pojo.Order;
 import com.pojo.Product;
 import com.pojo.Store;
 
 public class DataManagementUtility {
+	
+	public void addCustomer(HttpServletRequest request, Customer customer){
+		HttpSession session = request.getSession();
+		Store store = (Store)session.getAttribute("storeObject");
+		HashMap<String,Customer> custMap = store.getCustomerMap();
+		custMap.put(customer.getEmailId(), customer);
+		store.setCustomerMap(custMap);
+		session.setAttribute("storeObject", store);
+	}
+	
+	public Customer getCustomer(HttpServletRequest request,String email){
+		HttpSession session = request.getSession();
+		Store store = (Store)session.getAttribute("storeObject");
+		HashMap<String,Customer> custMap = store.getCustomerMap();
+		Customer customer = custMap.get(email);
+		return customer;
+	}
 
 	public void addProduct(HttpServletRequest request, Product product){
 		HttpSession session = request.getSession();

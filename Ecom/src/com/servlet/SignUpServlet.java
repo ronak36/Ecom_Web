@@ -1,8 +1,6 @@
 package com.servlet;
 
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,30 +18,27 @@ import com.pojo.Store;
 import com.util.DataManagementUtility;
 
 /**
- * Servlet implementation class HomeServlet
+ * Servlet implementation class SignUpServlet
  */
-public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Default constructor. 
-	 */
-	public HomeServlet() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+public class SignUpServlet extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		PrintWriter out = response.getWriter();
-		String userType = request.getParameter("usertype");
-		String uname = request.getParameter("inputEmail").toString();
-		String password = request.getParameter("inputPassword").toString();
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String address = request.getParameter("address");
+		String contactNum = request.getParameter("contNumber");
+		String emailId = request.getParameter("email");
+		String password = request.getParameter("password");
+		String password2 = request.getParameter("password2");
+		Customer customer = new Customer();
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setEmailId(emailId);
+		customer.setContactNo(contactNum);
+		customer.setPassword(password);
 		HttpSession session = request.getSession();
-		session.setAttribute("userId",uname);
 		Store storeCheck = (Store)session.getAttribute("storeObject");
 		if(storeCheck == null){
 			Store store = new Store();
@@ -61,20 +56,8 @@ public class HomeServlet extends HttpServlet {
 
 		}
 		DataManagementUtility dmUtil = new DataManagementUtility();
-		Customer customer = dmUtil.getCustomer(request,uname);
-		if("admin".equals(userType) && "admin@gmail.com".equals(uname) && "admin".equals(password)){
-
-			response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/dashboard.html");
-		}
-		else if("user".equals(userType) && "abc@gmail.com".equals(uname) && "abc".equals(password)){
-			response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/dashboard_user.html");	
-		}
-		else if(customer != null && "user".equals(userType) && customer.getEmailId().equals(uname) && customer.getPassword().equals(password)){
-			response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/dashboard_user.html");	
-		}
-		else{
-			out.println("Log in failed");
-		}
+		dmUtil.addCustomer(request,customer);
+		response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/index.html");
 	}
 
 	/**

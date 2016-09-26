@@ -37,10 +37,10 @@ public class RemoveProductServlet extends HttpServlet {
 		String userId = (String)session.getAttribute("userId");
 		HashMap<String, Cart> cartMap = store.getCartMap();
 		Cart cart = cartMap.get(userId);
-		request.setAttribute("cartProductList",cart.getProductCartList());
-	    RequestDispatcher rd = getServletContext().getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/viewCart.jsp");
-	    rd.forward(request, response);
-		//response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/viewCart.jsp");
+		session.setAttribute("cartProductList",cart.getProductCartList());
+	    //RequestDispatcher rd = getServletContext().getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/viewCart.jsp");
+	    //rd.forward(request, response);
+		response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/viewCart.jsp");
 		return;
 	}
 

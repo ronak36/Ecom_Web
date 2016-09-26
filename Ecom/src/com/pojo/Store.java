@@ -15,21 +15,21 @@ import com.pojo.Product;
 public class Store {
 
 	HashMap<String,List<Product>> productMap;
-	HashMap<String,List<Customer>> customerMap;
+	HashMap<String,Customer> customerMap;
 	HashMap<String,List<Order>> orderMap;
 	HashMap<String,Cart> cartMap;
 	
+	public HashMap<String, Customer> getCustomerMap() {
+		return customerMap;
+	}
+	public void setCustomerMap(HashMap<String, Customer> customerMap) {
+		this.customerMap = customerMap;
+	}
 	public HashMap<String, List<Product>> getProductMap() {
 		return productMap;
 	}
 	public void setProductMap(HashMap<String, List<Product>> productMap) {
 		this.productMap = productMap;
-	}
-	public HashMap<String, List<Customer>> getCustomerMap() {
-		return customerMap;
-	}
-	public void setCustomerMap(HashMap<String, List<Customer>> customerMap) {
-		this.customerMap = customerMap;
 	}
 	public HashMap<String, List<Order>> getOrderMap() {
 		return orderMap;

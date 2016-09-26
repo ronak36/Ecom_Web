@@ -11,6 +11,14 @@ public class Customer {
 	private String lastName;
 	private String emailId;
 	private String contactNo;
+	private String password;
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getCustomerId() {
 		return customerId;
 	}
