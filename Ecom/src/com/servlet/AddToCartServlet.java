@@ -37,14 +37,12 @@ public class AddToCartServlet extends HttpServlet {
 		dmUtil.addToCart(request,productInfo);
 		
 		if("checkout".equals(action)){
-			RequestDispatcher rd = getServletContext()
-					.getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/addPayment.html");
-			rd.forward(request, response);
+			response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/addPayment.html");
+			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/GenerateBillServlet");
+			//rd.forward(request, response);
 		}
 		else if ("nocheckout".equals(action)){
-			RequestDispatcher rd = getServletContext()
-					.getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/dashboard_user.html");
-			rd.forward(request, response);
+			response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/dashboard_user.html");  
 		}
 	}
 

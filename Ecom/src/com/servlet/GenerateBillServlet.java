@@ -34,12 +34,12 @@ public class GenerateBillServlet extends HttpServlet {
 		List<Order> orderList = orderMap.get(userId);
 		int currentOrder = orderList.size() - 1;
 		Order order = orderList.get(currentOrder);
-		request.setAttribute("orderProductList",order.getProductList());
-		request.setAttribute("orderId", order.getOrderId());
-		request.setAttribute("orderPrice", order.getTotal());
-		RequestDispatcher rd = getServletContext()
-				.getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/displayProductUser.jsp");
-		rd.forward(request, response);
+		session.setAttribute("orderProductList",order.getProductList());
+		session.setAttribute("orderId", order.getOrderId());
+		session.setAttribute("orderPrice", order.getTotal());
+		//RequestDispatcher rd = getServletContext().getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/generatedBill.jsp");
+		//rd.forward(request, response);
+		response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/generatedBill.jsp");
 	}
 
 	/**

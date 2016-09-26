@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Product</title>
+</head>
+<body>
+
+	<form method=post action="/Ecom/AddProductServlet">
+		Product Id:- <input type=text name="productId" /> Product Name:- <input
+			type=text name="productName" /> Price:- <input type=number
+			name="productPrice" /> <input type="hidden"
+			name="category2" id="category" /> 
+		<button type="submit">Sign in</button>
+	</form>
+	<form method=post action="/Ecom/DisplayProductServlet">
+		<input type="hidden"
+			name="category" id="new_category" /> 
+		<button type="submit">Display Product</button>
+	</form>
+	<form method=post action="/Ecom/LogoutServlet">
+		<button type="submit">Logout</button>
+	</form>
+	<script type="text/javascript">
+	window.onload = function() {
+		getCategoryId();
+		};
+		function getCategoryId() {
+			
+			document.getElementById("category").value = getQueryParam("category");
+			document.getElementById("new_category").value = getQueryParam("category");
+		}
+		function getQueryParam(param) {
+		    var result =  window.location.search.match(
+		        new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
+		    );
+
+		    return result ? result[3] : false;
+		}
+
+	</script>
+</body>
+</html>

@@ -34,7 +34,7 @@ public class AddProductServlet extends HttpServlet {
 		DataManagementUtility dmUtil = new DataManagementUtility();
 		dmUtil.addProduct(request, product);
 		
-		out.println(" " + productId + " " + productName + " " + productPrice + " " + category);
+		response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/dashboard.html");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

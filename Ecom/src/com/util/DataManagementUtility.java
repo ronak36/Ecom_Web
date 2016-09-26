@@ -32,7 +32,7 @@ public class DataManagementUtility {
 		store.setProductMap(productsMap);
 		session.setAttribute("storeObject", store);
 	}
-	
+
 	public void deleteProduct(HttpServletRequest request,Product product){
 		HttpSession session = request.getSession();
 		Store store = (Store)session.getAttribute("storeObject");
@@ -50,7 +50,30 @@ public class DataManagementUtility {
 		store.setProductMap(productsMap);
 		session.setAttribute("storeObject", store);
 	}
-	
+
+	public void removeProductFromCart(HttpServletRequest request,Product product){
+		HttpSession session = request.getSession();
+		Store store = (Store)session.getAttribute("storeObject");
+		String userId = (String)session.getAttribute("userId");
+		HashMap<String,Cart> cartMap = store.getCartMap();
+		Cart cart = cartMap.get(userId);
+		if(cart != null){
+			List<Product> cartProductList = cart.getProductCartList();
+			if(cartProductList !=null){
+				for(int i=0;i<cartProductList.size();i++){
+					Product product2 = cartProductList.get(i);
+					if(product2.getProductId().equals(product.getProductId())){
+						cartProductList.remove(i);
+					}
+				}
+				cart.setProductCartList(cartProductList);
+				cartMap.replace(userId, cart);
+			}
+		}
+		store.setCartMap(cartMap);
+		session.setAttribute("storeObject", store);
+	}
+
 	public void addToCart(HttpServletRequest request,Product product){
 		System.out.println("add to cart started");
 		HttpSession session = request.getSession();
@@ -69,7 +92,7 @@ public class DataManagementUtility {
 		if(productCartList == null ){
 			productCartList = new ArrayList<Product>();
 		}
-		
+
 		if(productList !=null){
 			for(int i=0;i<productList.size();i++){
 				Product product2 = productList.get(i);
@@ -90,24 +113,25 @@ public class DataManagementUtility {
 		System.out.println("new store" + store);
 		session.setAttribute("storeObject", store);
 	}
-	
+
 	public void generateBill(HttpServletRequest request){
 		System.out.println("generate bill started");
 		HttpSession session = request.getSession();
 		Store store = (Store)session.getAttribute("storeObject");
 		String userId = (String) session.getAttribute("userId");
-		
+
 		HashMap<String,Cart> cartMap = store.getCartMap();
 		Cart cart = cartMap.get(userId);
 		List<Product> productCartList = cart.getProductCartList();
-		
+
 		HashMap<String,List<Order>> orderMap = store.getOrderMap();
 		List<Order> orderList = orderMap.get(userId);
 		if(orderList == null){
 			orderList = new ArrayList<Order>();
 		}
 		Order order = new Order();
-		order.setOrderId(orderList.size() + "");
+		int orderId = orderList.size() + 1;
+		order.setOrderId(orderId + "");
 		order.setProductList(productCartList);
 		double total = 0d;
 		for(int i=0; i<productCartList.size();i++){
@@ -125,5 +149,5 @@ public class DataManagementUtility {
 		session.setAttribute("storeObject", store);
 		System.out.println("gen store" + store);
 	}
-	
+
 }

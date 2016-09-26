@@ -89,4 +89,24 @@
     <servlet-name>GenerateBillServlet</servlet-name>
     <url-pattern>/GenerateBillServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewCartServlet</display-name>
+    <servlet-name>ViewCartServlet</servlet-name>
+    <servlet-class>com.servlet.ViewCartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewCartServlet</servlet-name>
+    <url-pattern>/ViewCartServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveProductServlet</display-name>
+    <servlet-name>RemoveProductServlet</servlet-name>
+    <servlet-class>com.servlet.RemoveProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveProductServlet</servlet-name>
+    <url-pattern>/RemoveProductServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

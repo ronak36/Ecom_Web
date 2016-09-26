@@ -1,6 +1,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+	pageEncoding="US-ASCII"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -64,33 +66,53 @@
 	</div>
 	</nav>
 
-	<div class="container" align="center">
-		============================Order Bill==============================
-		<table class="table table-striped">
-			<tr>
-				<td><b>Order Id:-</b></td>
-				<td><c:out value="${orderId}" /></td><td></td><td></td>
-			</tr>
-			<tr>
-				<td><b>Product Id</b></td>
-				<td><b>Product Name</b></td>
-				<td><b>Product Price</b></td>
-				<td><b>Warrenty</b></td>
-			</tr>
-			<c:forEach items="${orderProductList}" var="product">
-				<tr>
-					<td><c:out value="${product.productId}" /></td>
-					<td><c:out value="${product.productName}" /></td>
-					<td><c:out value="${product.price}" /></td>
-					<td></td>
-				</tr>
-			</c:forEach>
-			<tr>
-				<td>Total</td>
-				<td><c:out value="${orderPrice}"></c:out></td><td></td><td></td>
-			</tr>
-		</table>
-		============================Order Bill==============================
+	<div class="container">
+
+		<c:forEach items="${cartProductList}" var="product">
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<tr>
+						<td><b>Product Name:-</b></td>
+						<td><c:out value="${product.productName}"></c:out></td>
+					</tr>
+					<tr>
+						<td><b>Product Id:-</b></td>
+						<td><c:out value="${product.productId}"></c:out></td>
+					</tr>
+					<tr>
+						<td><b>Product Id:-</b></td>
+						<td><c:out value="${product.price}"></c:out></td>
+					</tr>
+					<tr>
+						<td><button class="btn btn-primary" id="dbtn${product.productId}"
+								onclick="deleteProduct('${product.productId}','${product.categoryId}')">Remove</button></td>
+					</tr>
+				</table>
+				</div>
+		</c:forEach>
+		<form id="productForm">
+			<input type="hidden" id="rmCatId" name="rmCatId" /> <input
+				type="hidden" id="rmProductId" name="rmProductId" />
+			<button class="btn btn-primary" onclick="checkout()">Check out</button>
+		</form>
+		<script type="text/javascript">
+			function checkout() {
+				document.getElementById("rmProductId").value = "-1";
+				document.getElementById("rmCatId").value = "-1";
+				document.getElementById("productForm").action = "/Ecom/E_Com_Web/docs/ECom_WebContent/html/addPayment.html";
+				document.getElementById("productForm").submit();
+			}
+			function deleteProduct(productId, catId) {
+
+				var isDelete = confirm("Do you want to remove this product?");
+				if (isDelete == true) {
+					document.getElementById("rmProductId").value = productId;
+					document.getElementById("rmCatId").value = catId;
+					document.getElementById("productForm").action = "/Ecom/RemoveProductServlet";
+					document.getElementById("productForm").submit();
+				}
+			}
+		</script>
 	</div>
 
 	<!-- Bootstrap core JavaScript

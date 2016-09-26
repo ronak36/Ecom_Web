@@ -27,11 +27,12 @@ public class DisplayProductServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Store store = (Store)session.getAttribute("storeObject");
 		HashMap<String, List<Product>> productMap = store.getProductMap();
-		request.setAttribute("productList", productMap.get(category));
+		session.setAttribute("productList", productMap.get(category));
 		System.out.println(productMap.get(category).toString());
-		 RequestDispatcher rd = getServletContext()
-                 .getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/displayProduct.jsp");
-rd.forward(request, response);
+		//RequestDispatcher rd = getServletContext().getRequestDispatcher("/E_Com_Web/docs/ECom_WebContent/html/displayProduct.jsp");
+		//rd.forward(request, response);
+		response.sendRedirect("/Ecom/E_Com_Web/docs/ECom_WebContent/html/displayProduct.jsp");
+		return;
 	}
 
 

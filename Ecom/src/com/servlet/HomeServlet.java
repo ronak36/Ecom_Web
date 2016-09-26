@@ -41,33 +41,32 @@ public class HomeServlet extends HttpServlet {
 		String userType = request.getParameter("usertype");
 		String uname = request.getParameter("inputEmail").toString();
 		String password = request.getParameter("inputPassword").toString();
-		if("abc@gmail.com".equals(uname) && "abc".equals(password)){
-			HttpSession session = request.getSession();
-			session.setAttribute("userId","abc@gmail.com");
-			Store storeCheck = (Store)session.getAttribute("storeObject");
-			if(storeCheck == null){
-				Store store = new Store();
-				HashMap<String,List<Product>> productMap = new HashMap<String, List<Product>>();
-				HashMap<String,List<Customer>> customerMap = new HashMap<String, List<Customer>>();
-				HashMap<String,List<Order>> orderMap = new HashMap<String, List<Order>>();
-				HashMap<String,Cart> cartMap = new HashMap<String,Cart>();
-				
-				store.setProductMap(productMap);
-				store.setCustomerMap(customerMap);
-				store.setOrderMap(orderMap);
-				store.setCartMap(cartMap);
-				
-				session.setAttribute("storeObject", store);
+		HttpSession session = request.getSession();
+		session.setAttribute("userId","abc@gmail.com");
+		Store storeCheck = (Store)session.getAttribute("storeObject");
+		if(storeCheck == null){
+			Store store = new Store();
+			HashMap<String,List<Product>> productMap = new HashMap<String, List<Product>>();
+			HashMap<String,List<Customer>> customerMap = new HashMap<String, List<Customer>>();
+			HashMap<String,List<Order>> orderMap = new HashMap<String, List<Order>>();
+			HashMap<String,Cart> cartMap = new HashMap<String,Cart>();
 
-				out.println("Log in successful");
-				
-			}
-			if("admin".equals(userType)){
-				response.sendRedirect("E_Com_Web/docs/ECom_WebContent/html/dashboard.html");
-			}
-			else if("user".equals(userType)){
-				response.sendRedirect("E_Com_Web/docs/ECom_WebContent/html/dashboard_user.html");	
-			}
+			store.setProductMap(productMap);
+			store.setCustomerMap(customerMap);
+			store.setOrderMap(orderMap);
+			store.setCartMap(cartMap);
+
+			session.setAttribute("storeObject", store);
+
+			out.println("Log in successful");
+
+		}
+		if("admin".equals(userType) && "admin@gmail.com".equals(uname) && "admin".equals(password)){
+
+			response.sendRedirect("E_Com_Web/docs/ECom_WebContent/html/dashboard.html");
+		}
+		else if("user".equals(userType) && "abc@gmail.com".equals(uname) && "abc".equals(password)){
+			response.sendRedirect("E_Com_Web/docs/ECom_WebContent/html/dashboard_user.html");	
 		}
 		else{
 			out.println("Log in failed");
